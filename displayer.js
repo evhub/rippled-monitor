@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                           chrome.sockets.udp.onReceive.addListener(function(info) {
                                                                    if (info.socketId !== socketId)
-                                                                   return;
+                                                                       return;
                                                                    display(info.data);
                                                                    console.log(info.data);
                                                                    });
