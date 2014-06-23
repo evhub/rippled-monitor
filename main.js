@@ -1,4 +1,4 @@
-var port = 6775
+var port = 6775;
 
 document.addEventListener('DOMContentLoaded', function () {
                           var socketId;
@@ -6,30 +6,41 @@ document.addEventListener('DOMContentLoaded', function () {
                           var log = mainwin.getElementById("log");
                           
                           function display(item) {
-                                log.appendChild(mainwin.createTextNode(item+"\n"));
+                                log.appendChild(mainwin.createTextNode(item+"\r\n"));
                           };
                           
-                          chrome.sockets.udp.create({}, function(socketInfo) {
-                                                    
-                                                    display("Connecting...");
-                                                    
-                                                    socketId = socketInfo.socketId;
-                                                    
-                                                    chrome.sockets.udp.onReceive.addListener(function(info) {
-                                                                                             if (info.socketId !== socketId)
-                                                                                                return;
-                                                                                             display(info.data);
-                                                                                             });
-                                                    
-                                                    chrome.sockets.udp.bind(socketId, "0.0.0.0", +(port), function(result) {
-                                                                            if (result < 0) {
-                                                                                display("Error binding socket.");
-                                                                                return;
-                                                                            });
-                                                    
-                                                    display("Connected.");
-                                                    
-                                                    });
+                          display("Booting Up...");
+                          
+                          try {
+                          
+                              chrome.sockets.udp.create({}, function(socketInfo) {
+                                                        
+                                                        display("Connecting...");
+                                                        
+                                                        socketId = socketInfo.socketId;
+                                                        
+                                                        chrome.sockets.udp.bind(socketId, "0.0.0.0", +port, function(result) {
+                                                                                if (result < 0) {
+                                                                                    display("Error binding socket.");
+                                                                                    return;
+                                                                                });
+                                                        
+                                                        chrome.sockets.udp.onReceive.addListener(function(info) {
+                                                                                                 if (info.socketId !== socketId) {
+                                                                                                 display("Unknown: "+info.data)
+                                                                                                 }
+                                                                                                 else {
+                                                                                                 display("Received: "+info.data);
+                                                                                                 });
+                                                        
+                                                        display("Connected.");
+                                                        
+                                                        });
+                          
+                          }
+                          catch(err) {
+                            display("An Error Occured: "+err);
+                          };
                           
                           display("Log Initialized:");
                           

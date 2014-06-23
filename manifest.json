@@ -1,17 +1,17 @@
 {
-  "manifest_version": 2,
-  "name": "Rippled Monitor",
-  "description": "Monitors A Local Rippled Instance.",
-  "version": "1",
-  "minimum_chrome_version": "33",
-  "app": {
-    "background": {
-      "scripts": ["background.js"]
+    "manifest_version": 2,
+    "name": "Rippled Monitor",
+    "description": "Monitors A Local Rippled Instance.",
+    "version": "1",
+    "minimum_chrome_version": "33",
+    "app": {
+        "background": {
+            "scripts": ["background.js"]
+        }
+    },
+    "sockets": {
+        "udp": {
+            "receive": ""
+        }
     }
-  },
-  "sockets": {
-    "udp": {
-      "receive":""
-    }
-  }
 }
