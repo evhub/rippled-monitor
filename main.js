@@ -1,5 +1,9 @@
 var port = 6775;
 
+function formatHTML(inputstring) {
+    return inputstring.replace("<", "&lt;").replace(">", "&gt;").replace("&", "&amp;");
+};
+
 document.addEventListener('DOMContentLoaded', function () {
                           var socketId;
                           var mainwin = document;
@@ -8,22 +12,22 @@ document.addEventListener('DOMContentLoaded', function () {
                           function display(item, group) {
                           
                                 item = ""+item;
-                                var toappend = mainwin.createTextNode(item);
+                                var toappend = formatHTML(item)
                           
                                 if (!! group) {
                                     console.group(item);
-                                    toappend = mainwin.createElement("h1").appendChild(toappend);
+                                    toappend = "<h1>"+toappend+"</h1>";
                                     }
                                 else {
                                     console.log(item);
-                                    toappend = mainwin.createElement("p").appendChild(toappend);
+                                    toappend = "<p>"+toappend+"</p>";
                                     };
                           
                                 if (group === false) {
                                     console.groupEnd();
                                     };
                           
-                                log.appendChild(toappend);
+                                log.innerHTML += toappend;
                           
                             };
                           
@@ -52,10 +56,10 @@ document.addEventListener('DOMContentLoaded', function () {
                                                                                              });
                                                     
                                                     display("Connected.", false);
+                                                    display("Log Initialized:", true);
                                                     
                                                     });
                         
                         display("Booted Up.", false);
-                        display("Log Initialized:", true);
                         
                         });
