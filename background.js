@@ -9,6 +9,7 @@ chrome.app.runtime.onLaunched.addListener(function() {
                                                                    bounds: {
                                                                         width: 680,
                                                                         height: 480
+                                                                        }
                                                                    });
                                           
                                           console.log("Loaded.");

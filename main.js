@@ -5,15 +5,30 @@ document.addEventListener('DOMContentLoaded', function () {
                           var mainwin = document;
                           var log = mainwin.getElementById("log");
                           
-                          function display(item) {
-                            log.appendChild(mainwin.createTextNode(item+"\r\n"));
-                          };
+                          function display(item, group) {
                           
-                          display("Booting Up...");
+                                item = ""+item
+                          
+                                if (!! group) {
+                                    console.group(item);
+                                    }
+                                else {
+                                    console.log(item);
+                                    };
+                          
+                                if (group === false) {
+                                    console.groupEnd();
+                                    };
+                          
+                                log.appendChild(mainwin.createElement("p").appendChild(mainwin.createTextNode(item)));
+                          
+                            };
+                          
+                          display("Booting Up...", true);
                           
                           chrome.sockets.udp.create({}, function(socketInfo) {
                                                     
-                                                    display("Connecting...");
+                                                    display("Connecting...", true);
                                                     
                                                     socketId = socketInfo.socketId;
                                                     
@@ -21,20 +36,23 @@ document.addEventListener('DOMContentLoaded', function () {
                                                                             if (result < 0) {
                                                                                 display("Error binding socket.");
                                                                                 return;
+                                                                                };
                                                                             });
                                                     
                                                     chrome.sockets.udp.onReceive.addListener(function(info) {
                                                                                              if (info.socketId !== socketId) {
                                                                                                 display("Unknown: "+info.data);
-                                                                                             }
+                                                                                                }
                                                                                              else {
                                                                                                 display("Received: "+info.data);
+                                                                                                };
                                                                                              });
                                                     
-                                                    display("Connected.");
+                                                    display("Connected.", false);
                                                     
                                                     });
-                      
-                        display("Log Initialized:");
-                      
+                        
+                        display("Booted Up.", false);
+                        display("Log Initialized:", true);
+                        
                         });
