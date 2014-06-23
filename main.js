@@ -15,8 +15,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
                           chrome.sockets.udp.onReceive.addListener(function(info) {
                                                                    if (info.socketId !== socketId)
-                                                                       return;
+                                                                        return;
                                                                    display(info.data);
                                                                    console.log(info.data);
                                                                    });
+
+                          chrome.sockets.udp.bind(socketId, "0.0.0.0", 0, function(result) {
+                                                  if (result < 0) {
+                                                        console.log("Error binding socket.");
+                                                        return;
+                                                  });
+
                           });
