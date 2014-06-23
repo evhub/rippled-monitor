@@ -1,3 +1,5 @@
+var port = 6787
+
 document.addEventListener('DOMContentLoaded', function () {
                           var socketId;
                           var mainwin = document;
@@ -19,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                                                                              display(info.data);
                                                                                              });
                                                     
-                                                    chrome.sockets.udp.bind(socketId, "0.0.0.0", 0, function(result) {
+                                                    chrome.sockets.udp.bind(socketId, "0.0.0.0", +(port), function(result) {
                                                                             if (result < 0) {
                                                                                 display("Error binding socket.");
                                                                                 return;
