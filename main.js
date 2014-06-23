@@ -1,4 +1,4 @@
-var port = 6787
+var port = 6775
 
 document.addEventListener('DOMContentLoaded', function () {
                           var socketId;
