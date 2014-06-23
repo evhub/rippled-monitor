@@ -7,20 +7,23 @@ document.addEventListener('DOMContentLoaded', function () {
                           
                           function display(item, group) {
                           
-                                item = ""+item
+                                item = ""+item;
+                                var toappend = mainwin.createTextNode(item);
                           
                                 if (!! group) {
                                     console.group(item);
+                                    toappend = mainwin.createElement("h1").appendChild(toappend);
                                     }
                                 else {
                                     console.log(item);
+                                    toappend = mainwin.createElement("p").appendChild(toappend);
                                     };
                           
                                 if (group === false) {
                                     console.groupEnd();
                                     };
                           
-                                log.appendChild(mainwin.createElement("p").appendChild(mainwin.createTextNode(item)));
+                                log.appendChild(toappend);
                           
                             };
                           
