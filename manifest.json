@@ -11,12 +11,7 @@
     },
     "sockets": {
         "udp": {
-            "receive": ""
+            "bind": ""
         }
-    },
-    "permissions": {
-        [{
-        "socket": ["udp-receive"]
-        }]
     }
 }
